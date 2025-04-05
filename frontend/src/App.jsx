@@ -15,37 +15,28 @@ const App = () => {
   const [darkMode, setDarkMode] = useState(false)
   const [isMounted, setIsMounted] = useState(false)
 
-  // Handle dark mode only on the client side
   useEffect(() => {
-    // Set mounted state
     setIsMounted(true)
 
-    // Check for saved preference
     const savedDarkMode = localStorage.getItem("darkMode") === "true"
     setDarkMode(savedDarkMode)
 
-    // Apply dark mode class if needed
     if (savedDarkMode) {
       document.body.classList.add("dark")
     } else {
       document.body.classList.remove("dark")
     }
 
-    // Cleanup function to prevent memory leaks
     return () => {
-      // No cleanup needed for this specific case
     }
   }, [])
 
-  // Handle dark mode toggle
   const toggleDarkMode = () => {
     const newDarkMode = !darkMode
     setDarkMode(newDarkMode)
 
-    // Save preference
     localStorage.setItem("darkMode", newDarkMode.toString())
 
-    // Apply or remove class
     if (newDarkMode) {
       document.body.classList.add("dark")
     } else {
@@ -70,7 +61,6 @@ const App = () => {
     }
   }
 
-  // Render a simplified version during SSR to avoid hydration issues
   if (!isMounted) {
     return (
       <div className="app-container">
@@ -78,7 +68,7 @@ const App = () => {
           <h1 className="title">Cipher Tool 🔐</h1>
         </div>
         <div className="form-container">
-          {/* Simplified form placeholders */}
+
           <div className="input-group">
             <label>Select Cipher</label>
             <select disabled>
@@ -105,7 +95,6 @@ const App = () => {
     )
   }
 
-  // Full client-side render after mounting
   return (
     <div className="app-container">
       <div className="app-header">
@@ -132,7 +121,8 @@ const App = () => {
         <div className="input-group">
           <label>Enter Text</label>
           <textarea
-            rows="3"
+            rows="4"
+            cols="20"
             value={inputText}
             onChange={(e) => setInputText(e.target.value)}
             placeholder="Enter text to encrypt or decrypt"
